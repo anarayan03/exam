@@ -1,0 +1,30 @@
+package com.cg.bank.util;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+public class DbConnection 
+{
+	
+
+	public static Connection getConnection() throws IOException, SQLException, ClassNotFoundException {
+		FileInputStream fileInputStream = new FileInputStream("Resources/database.properties");
+		Properties properties = new Properties();
+		properties.load(fileInputStream);
+		
+		String url = properties.getProperty("url");
+		String usrename =  properties.getProperty("username");
+		String password = properties.getProperty("password");
+		String driver1 = properties.getProperty("driver");
+		
+		Class.forName(driver1);
+		Connection connection = DriverManager.getConnection(url,usrename,password);
+		return connection;
+	}
+	
+}
